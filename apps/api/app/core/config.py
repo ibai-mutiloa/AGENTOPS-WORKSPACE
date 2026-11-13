@@ -1,6 +1,7 @@
 from functools import lru_cache
 from pathlib import Path
 
+from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[4]
@@ -8,6 +9,8 @@ REPOSITORY_ROOT = Path(__file__).resolve().parents[4]
 
 class Settings(BaseSettings):
     database_url: str
+    jwt_secret: SecretStr | None = None
+    demo_password: SecretStr | None = None
 
     model_config = SettingsConfigDict(env_file=REPOSITORY_ROOT / ".env", extra="ignore")
 
